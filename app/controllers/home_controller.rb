@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   before_action :set_shop
-  before_action :check_if_installed
 
   def index
+    check_if_installed
   end
 
   private

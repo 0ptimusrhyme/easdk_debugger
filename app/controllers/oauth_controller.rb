@@ -11,7 +11,7 @@ class OauthController < ApplicationController
         myshopify_url: @shop
       })
 
-      redirect_to "#{ENV['APP_URL']}"
+      redirect_to "#{ENV['APP_URL']}?shop=#{@shop}"
     end
   end
 
