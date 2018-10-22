@@ -1,0 +1,130 @@
+<!-- Not included: Functions that are _implicitly called_ -->
+
+<section class="section">
+  <h2 class="title">Flash Notifications</h2>
+  <button class="button is-primary flashnotice">ShopifyApp.flashNotice</button>
+  <button class="button is-primary flasherror">ShopifyApp.flashError</button>
+</section>
+
+<section class="section">
+  <h2 class="title">App Bar</h2>
+  <button class="button is-primary bar-loadingon">ShopifyApp.Bar.loadingOn</button>
+  <button class="button is-primary bar-loadingoff">ShopifyApp.Bar.loadingOff</button>
+  <button class="button is-primary bar-settitle">ShopifyApp.Bar.setTitle</button>
+  <button class="button is-primary bar-seticon">ShopifyApp.Bar.setIcon</button><br><br>
+  <button class="button is-primary bar-setPagination">ShopifyApp.Bar.setPagination</button>
+  <button class="button is-primary bar-setbreadcrumb">ShopifyApp.Bar.setBreadcrumb</button>
+</section>
+
+<section class="section">
+  <h2 class="title">Modals</h2>
+  <button class="button is-primary modal-open">ShopifyApp.Modal.open</button>
+  <button class="button is-primary modal-alert">ShopifyApp.Modal.alert</button>
+  <button class="button is-primary modal-confirm">ShopifyApp.Modal.confirm</button>
+  <button class="button is-primary modal-input">ShopifyApp.Modal.input</button><br><br>
+  <button class="button is-primary modal-productpicker">ShopifyApp.Modal.productPicker</button>
+  <button class="button is-primary modal-collectionpicker">ShopifyApp.Modal.collectionPicker</button>
+</section>
+
+<section class="section">
+  <h2 class="title">Misc</h2>
+  <button class="button is-primary remoteredirect">ShopifyApp.remoteRedirect</button>
+  <button class="button is-primary redirect">ShopifyApp.redirect</button>
+  <button class="button is-primary user-current">ShopifyApp.User.current</button>
+</section>
+
+<!-- Button click handlers -->
+<script>
+  $('.bar-loadingon').click(()=>{
+    ShopifyApp.Bar.loadingOn();
+  });
+  $('.bar-loadingoff').click(()=>{
+    ShopifyApp.Bar.loadingOff();
+  });
+  $('.flashnotice').click(()=>{
+    ShopifyApp.flashNotice('Flash Notice');
+  });
+  $('.flasherror').click(()=>{
+    ShopifyApp.flashError('Flash Error');
+  });
+  $('.remoteredirect').click(()=>{
+    ShopifyApp.remoteRedirect('http://www.nyan.cat/');
+  });
+  $('.redirect').click(()=>{
+    ShopifyApp.redirect('/apps');
+  });
+  $('.bar-settitle').click(()=>{
+    ShopifyApp.Bar.setTitle('FOOBAR');
+  });
+  $('.bar-seticon').click(()=>{
+    ShopifyApp.Bar.setIcon('https://www.brandchannel.com/wp-content/uploads/2018/02/apple-rainbow-logo-original.jpg');
+  });
+  $('.bar-setPagination').click(()=>{
+    ShopifyApp.Bar.setPagination({
+      next: {
+        callback: () => { ShopifyApp.flashNotice('Next clicked'); }
+      },
+      previous: {
+        callback: () => { ShopifyApp.flashNotice('Previous clicked'); }
+      }
+    });
+  });
+  $('.bar-setbreadcrumb').click(()=>{
+    ShopifyApp.Bar.setBreadcrumb({
+      label: 'Breadcrumb Link',
+      callback: () => { ShopifyApp.flashNotice('Breadcrumb clicked'); }
+    });
+  });
+  $('.modal-open').click(()=>{
+    ShopifyApp.Modal.open({
+      src: 'http://www.ycombinator.com/',
+      title: 'New Modal',
+      width: 'large',
+      buttons: {
+        primary: { label: 'Primary button', callback: () => { alert('Primary button clicked'); } },
+        secondary: [
+          { label: 'Override modal height', callback: () => { ShopifyApp.Modal.setHeight(720); } },
+          { label: 'Close modal', callback: () => { ShopifyApp.Modal.close(); } }
+        ]
+      },
+    });
+  });
+  $('.modal-alert').click(()=>{
+    ShopifyApp.Modal.alert('Alert Modal', (result) => {
+      alert('Alert modal closed');
+    });
+  });
+  $('.modal-confirm').click(()=>{
+    ShopifyApp.Modal.confirm('Are you sure?', (result) => {
+      if (result) {
+        alert('Confirm modal closed');
+      } else {
+        alert('Cancelled');
+      }
+    });
+  });
+  $('.modal-input').click(()=>{
+    ShopifyApp.Modal.input('Data Input Modal', (result, data) => {
+      if (result) {
+        alert('Data entered: ' + data);
+      }
+    });
+  });
+  $('.user-current').click(()=>{
+    alert(ShopifyApp.User.current.accountAccess);
+  });
+  $('.modal-productpicker').click(()=>{
+    ShopifyApp.Modal.productPicker({
+      title: 'Product Picker Modal',
+      selectMultiple: true,
+      showHidden: true
+    });
+  });
+  $('.modal-collectionpicker').click(()=>{
+    ShopifyApp.Modal.collectionPicker({
+      title: 'Collection Picker Modal',
+      selectMultiple: false,
+      showHidden: false
+    });
+  });
+</script>
